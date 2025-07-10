@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        ".env*": "dotenv",
+        "*.c": "c",
+        "stdio.h": "c",
+        "STDIO.H": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
