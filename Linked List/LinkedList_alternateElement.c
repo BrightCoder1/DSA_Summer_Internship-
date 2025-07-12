@@ -34,7 +34,10 @@ int main()
 
     while (temp != NULL)
     {
-        printf(" ->%d ", temp->data);
+        if (temp->data % 2 == 0)
+        {
+            printf(" ->%d ", temp->data);
+        }
         temp = temp->address;
     }
 

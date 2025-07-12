@@ -1,40 +1,87 @@
 #include <STDIO.H>
 #include <STDLIB.H>
 
-
 struct node
 {
     int data;
-    struct node *left, *right;
+    struct node *right, *left;
 };
 
-struct node *create()
+struct node *create(int x)
 {
-    int x;
-    struct node *temp;
-    temp = (struct node *)malloc(sizeof(struct node));
-    printf("\nEnter a value: (enter -1 to input Null)");
-    scanf("%d", &x);
+    struct node *n = (struct node *)malloc(sizeof(struct node));
+    n->data = x;
+    n->left = NULL;
+    n->right = NULL;
+    return n;
+}
 
-    if (x == -1)
+struct node *insert(struct node *newElm, int val)
+{
+    if (newElm == NULL)
+    {
+        newElm = create(val);
+    }
+    else if (val < newElm->data)
+    {
+        newElm->left = insert(newElm->left, val);
+    }
+    else if (val > newElm->data)
+    {
+        newElm->right = insert(newElm->right, val);
+    }
+    return newElm;
+}
+
+void inorder(struct node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    inorder(root->left);
+    printf("%d ", root->data);
+    inorder(root->right);
+}
+
+struct node *Searching(struct node *tree, int val)
+{
+    if (tree == NULL)
     {
         return NULL;
     }
-
-    temp->data = x;
-
-    printf("\nEnter the left chile of %d", x);
-    temp->left = create();
-    printf("\n");
-
-    printf("\nEnter the right chile of %d", x);
-    temp->right = create();
+    else if (tree->data == val)
+    {
+        return tree;
+    }
+    else if (val < tree->data)
+    {
+        return Searching(tree->left, val);
+    }
+    else if (val > tree->data)
+    {
+        return Searching(tree->right, val);
+    }
 }
 
 int main()
 {
     struct node *root;
     root = NULL;
-    root = create();
-    return 0;
+
+    root = insert(root, 15);
+    root = insert(root, 10);
+    root = insert(root, 20);
+
+    inorder(root);
+    printf("\n");
+    struct node *check = Searching(root, 10);
+    if (check != NULL)
+    {
+        printf("Element is found");
+    }
+    else
+    {
+        printf("Element is not found");
+    }
 }
